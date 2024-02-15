@@ -6,17 +6,11 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 17:06:26 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/02/15 10:26:33 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/02/15 10:29:29 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-void	init_id(t_proc *id)
-{
-	id->p1 = 0;
-	id->p2 = 0;
-}
 
 int	main(int argc, char *argv[], char **envp)
 {
