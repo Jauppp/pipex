@@ -6,7 +6,7 @@
 #    By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 10:23:52 by cdomet-d          #+#    #+#              #
-#    Updated: 2024/02/14 15:23:29 by cdomet-d         ###   ########lyon.fr    #
+#    Updated: 2024/02/15 11:09:19 by cdomet-d         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,7 +74,7 @@ run: all
 	@./$(NAME)
 
 valgrind: all
-	@valgrind -s ./$(NAME)
+	@valgrind --leak-check=full ./$(NAME)
 
 help:
 	@echo "make \t\t $(FAINT)makes executable$(RESET)"

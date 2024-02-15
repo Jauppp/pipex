@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 17:06:26 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/02/15 10:29:29 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/02/15 12:06:49 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,20 @@
 int	main(int argc, char *argv[], char **envp)
 {
 	t_var	var;
+	t_proc	ids;
 
 	init_var(&var);
 	(void)argc;
 	fetch_path(envp, &var);
-	display_tab(var.path);
-	var.cmd_1 = fetch_cmd_1(argv, 1);
-	if (!var.cmd_1)
-		return (EXIT_FAILURE);
+	fetch_args(argv, &var);
 	find_absolute_path(&var);
 	printf("absolute path : %s\n", var.a_path);
-	var.file_1 = ft_strdup(argv[2]);
-	printf("cmd : %s\n", var.cmd_1);
-	execve(var.a_path, &var.cmd_1, var.path);
+	ids.p1 = fork();
+	if (ids.p1 == 0)
+		execve(var.a_path, var.args, envp);
+	printf("This should only be printed by the parent process, \
+		id = %d\n", ids.p1);
 	free_var(&var, EXIT_SUCCESS, NULL);
+	if (ids.p1 != 0)
+		wait(NULL);
 }

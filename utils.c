@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 15:04:15 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/02/14 18:00:27 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/02/15 11:08:24 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	init_var(t_var	*var)
 {
-	var->path = NULL;
+	var->paths = NULL;
+	var->args = NULL;
 	var->a_path = NULL;
 	var->cmd_1 = NULL;
 	var->cmd_2 = NULL;
@@ -35,6 +36,8 @@ void	display_tab(char **tab)
 			ft_printf("tab[%u] : |%s|\n", i, tab[i]);
 	}
 }
+
+
 
 char	*append_cmd(char const *s1, char const *s2)
 {

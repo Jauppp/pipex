@@ -6,7 +6,7 @@
 #    By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 10:23:52 by cdomet-d          #+#    #+#              #
-#    Updated: 2024/01/19 16:15:57 by cdomet-d         ###   ########lyon.fr    #
+#    Updated: 2024/02/15 11:02:06 by cdomet-d         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SRCS := ft_atoi.c \
 		ft_strlcat.c \
 		ft_strlcpy.c \
 		ft_strlen.c \
+		ft_dstrlen.c \
 		ft_strmapi.c \
 		ft_strncmp.c \
 		ft_strnstr.c \

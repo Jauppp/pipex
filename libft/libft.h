@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:20:53 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/02/12 14:53:19 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/02/15 11:07:26 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ size_t	ft_isspace(char c);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 size_t	ft_strlen(const char *s);
+size_t	ft_dstrlen(char **s);
 ssize_t	ft_putchar_fd(char c, int fd);
 ssize_t	ft_putstr_fd(char *s, int fd);
 void	*ft_calloc(size_t nmemb, size_t size);

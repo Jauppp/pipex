@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 17:02:04 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/02/14 17:56:18 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/02/15 11:57:17 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ typedef struct s_process
 
 typedef struct s_var
 {
-	char	**path;
+	char	**paths;
+	char	**args;
 	char	*a_path;
 	char	*cmd_1;
 	char	*cmd_2;
@@ -44,7 +45,7 @@ void	print_error(int error_code, char *error_message);
 /* Handle arguments */
 void	fetch_path(char **envp, t_var *var);
 void	find_absolute_path(t_var *var);
-char	*fetch_cmd_1(char **argv, int arg);
+void	fetch_args(char **argv, t_var *var);
 
 /* Handle memory */
 void	free_dtab(char **dtab);
@@ -54,5 +55,6 @@ void	free_var(t_var *var, int exit_code, char *error_message);
 void	init_var(t_var	*var);
 void	display_tab(char **tab);
 char	*append_cmd(char const *s1, char const *s2);
+
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:50:16 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/02/14 18:02:14 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/02/15 12:00:54 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	fetch_path(char **envp, t_var *var)
 			path = ft_substr(envp[i], 5, ft_strlen(envp[i]));
 			if (errno)
 				print_error(errno, NULL);
-			var->path = ft_split(path, ':');
+			var->paths = ft_split(path, ':');
+			free(path);
 			if (errno)
 				free_var(var, errno, NULL);
 		}
@@ -38,13 +39,13 @@ void	find_absolute_path(t_var *var)
 	size_t	i;
 
 	i = 0;
-	while (var->path[i])
+	while (var->paths[i])
 	{
 		if (var->a_path)
 			free(var->a_path);
-		var->a_path = append_cmd(var->path[i], var->cmd_1);
+		var->a_path = append_cmd(var->paths[i], var->args[0]);
 		if (!var->a_path)
-			free_var(var, errno, "append failed");
+			free_var(var, errno, "Append failed");
 		if (access(var->a_path, F_OK) == 0)
 			return ;
 		i++;
@@ -52,16 +53,23 @@ void	find_absolute_path(t_var *var)
 	free_var(var, errno, "Command not found");
 }
 
-
-
-char	*fetch_cmd_1(char **argv, int arg)
+void	fetch_args(char **argv, t_var *var)
 {
-	char	*cmd;
+	size_t	i;
+	size_t	j;
 
-	cmd = ft_strdup(argv[arg]);
-	if (errno)
-		print_error(errno, NULL);
-	if (cmd)
-		return (cmd);
-	return (NULL);
+	i = 1;
+	j = 0;
+	var->args = ft_calloc(ft_dstrlen(argv) + 1, sizeof (char *));
+	if (!var->args)
+		free_var(var, errno, "Allocation for var->args failed");
+	while (argv[i])
+	{
+		var->args[j] = ft_strdup(argv[i]);
+		if (!var->args)
+			free_var(var, errno, "Copying the command failed");
+		i++;
+		j++;
+	}
+	display_tab(var->args);
 }
