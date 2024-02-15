@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 15:04:15 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/02/15 11:08:24 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/02/15 17:35:10 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,15 @@ void	init_var(t_var	*var)
 	var->paths = NULL;
 	var->args = NULL;
 	var->a_path = NULL;
-	var->cmd_1 = NULL;
-	var->cmd_2 = NULL;
-	var->file_1 = NULL;
-	var->file_2 = NULL;
+	var->files.infile = NULL;
+	var->files.outfile = NULL;
 }
 
 void	display_tab(char **tab)
 {
 	unsigned int	i;
 
+	ft_printf("\n----\n");
 	i = -1;
 	while (tab[++i])
 	{
@@ -35,9 +34,8 @@ void	display_tab(char **tab)
 		else
 			ft_printf("tab[%u] : |%s|\n", i, tab[i]);
 	}
+	ft_printf("----\n");
 }
-
-
 
 char	*append_cmd(char const *s1, char const *s2)
 {
@@ -62,4 +60,30 @@ char	*append_cmd(char const *s1, char const *s2)
 	while (s2[j])
 		strjoin[i++] = s2[j++];
 	return (strjoin);
+}
+
+size_t	count_words(const char *s, char c)
+{
+	size_t	i;
+	size_t	count;
+
+	i = 0;
+	count = 0;
+	while (s[i] == c)
+		i++;
+	while (s[i])
+	{
+		if (s[i] == c && s[i - 1] != c)
+			count++;
+		if (s[i] == DQUOTE || s[i] == SQUOTE)
+		{
+			while (s[i] && (s[i] != DQUOTE || s[i] != SQUOTE))
+				i++;
+		}
+		if (s[i])
+			i++;
+	}
+	if (s[i - 1] == c)
+		count--;
+	return (count + 1);
 }

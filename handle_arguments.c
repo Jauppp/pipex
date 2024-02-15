@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:50:16 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/02/15 12:00:54 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/02/15 17:36:38 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,20 +56,30 @@ void	find_absolute_path(t_var *var)
 void	fetch_args(char **argv, t_var *var)
 {
 	size_t	i;
-	size_t	j;
+	char	*temp;
 
-	i = 1;
-	j = 0;
-	var->args = ft_calloc(ft_dstrlen(argv) + 1, sizeof (char *));
-	if (!var->args)
-		free_var(var, errno, "Allocation for var->args failed");
+	temp = NULL;
+	i = 2;
+	// j = 0;
 	while (argv[i])
 	{
-		var->args[j] = ft_strdup(argv[i]);
+		if (temp)
+			free(temp);
+		var->args = split_cmd(argv[i], ' ');
 		if (!var->args)
-			free_var(var, errno, "Copying the command failed");
+			free_var(var, errno, "Allocation for var->arg failed");
 		i++;
-		j++;
 	}
-	display_tab(var->args);
+}
+
+void	fetch_files(char **argv, t_var *var)
+{
+	if (access(argv[1], R_OK) == -1)
+		var->files.infile = "u/dev/null";
+	else
+		var->files.infile = ft_strdup(argv[1]);
+	if (access(argv[ft_dstrlen(argv) - 1], W_OK) == -1)
+		var->files.outfile = "u/dev/null";
+	else
+		var->files.outfile = ft_strdup(argv[ft_dstrlen(argv) - 1]);
 }

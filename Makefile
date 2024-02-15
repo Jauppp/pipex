@@ -6,7 +6,7 @@
 #    By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 10:23:52 by cdomet-d          #+#    #+#              #
-#    Updated: 2024/02/15 11:09:19 by cdomet-d         ###   ########lyon.fr    #
+#    Updated: 2024/02/15 16:11:00 by cdomet-d         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS := main.c \
 		handle_arguments.c \
 		handle_memory.c \
 		handle_errors.c \
+		split_cmd.c \
 
 OBJS := $(addprefix $(BUILD_DIR)/, $(SRCS:%.c=%.o))
 DEPS := $(OBJS:%.o=%.d)

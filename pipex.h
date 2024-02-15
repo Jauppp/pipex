@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 17:02:04 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/02/15 11:57:17 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/02/15 17:31:29 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,11 @@
 # include <sys/wait.h>
 # include <errno.h>
 # include <string.h>
+# include <stdbool.h>	
 #include <stdio.h>
 
+# define DQUOTE 34
+# define SQUOTE 39
 
 typedef struct s_process
 {
@@ -28,15 +31,19 @@ typedef struct s_process
 	int	p2;
 }	t_proc;
 
+typedef struct s_files
+{
+	char	*infile;
+	char	*outfile;
+}	t_files;
+
 typedef struct s_var
 {
 	char	**paths;
 	char	**args;
 	char	*a_path;
-	char	*cmd_1;
-	char	*cmd_2;
-	char	*file_1;
-	char	*file_2;
+	int		fd[2];
+	t_files	files;
 }	t_var;
 
 /* Handle error */
@@ -55,6 +62,10 @@ void	free_var(t_var *var, int exit_code, char *error_message);
 void	init_var(t_var	*var);
 void	display_tab(char **tab);
 char	*append_cmd(char const *s1, char const *s2);
+size_t	count_words(const char *s, char c);
 
+
+/* Split cmd */
+char	**split_cmd(char const *s, char c);
 
 #endif
