@@ -6,7 +6,7 @@
 #    By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 10:23:52 by cdomet-d          #+#    #+#              #
-#    Updated: 2024/02/16 13:31:18 by cdomet-d         ###   ########lyon.fr    #
+#    Updated: 2024/02/26 17:13:05 by cdomet-d         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,12 +20,12 @@ CFLAGS := -Werror -Wextra -Wall -g3
 CPPFLAGS = -MMD -MP
 MAKEFLAGS += --no-print-directory
 
-SRCS := main.c \
+SRCS := display.c \
+		errors.c \
+		init_args.c \
+		main.c \
+		memory.c \
 		utils.c \
-		handle_arguments.c \
-		handle_memory.c \
-		handle_errors.c \
-		tokenization.c \
 
 OBJS := $(addprefix $(BUILD_DIR)/, $(SRCS:%.c=%.o))
 DEPS := $(OBJS:%.o=%.d)

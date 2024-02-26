@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 15:04:15 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/02/16 15:53:26 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/02/26 17:05:19 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,57 @@
 
 void	init_var(t_var	*var)
 {
-	var->paths = NULL;
+	var->apath = NULL;
 	var->args = NULL;
-	var->a_path = NULL;
-	var->files.infile = NULL;
-	var->files.outfile = NULL;
+	var->fd[0] = 0;
+	var->fd[1] = 0;
+	var->i = 2;
+	var->id[0] = 0;
+	var->id[1] = 0;
+	var->paths = NULL;
 }
 
-void	display_tab(char **tab)
+void	tokenize(char *str)
 {
-	unsigned int	i;
+	size_t	i;
+	bool	quote;
+	char	c;
 
-	ft_printf("\n----\n");
+	i = 0;
+	quote = false;
+	while (str[i])
+	{
+		if (quote == false && (str[i] == DQUOTE || str[i] == SQUOTE))
+		{
+			quote = true;
+			c = str[i];
+			i++;
+		}
+		if (quote == true && str[i] == ' ')
+			str[i] = str[i] * -1;
+		if (quote == true && str[i] == c)
+			quote = false;
+		i++;
+	}
+}
+
+void	reverse_tokenize(char **tab)
+{
+	size_t	i;
+	size_t	j;
+
 	i = 0;
 	while (tab[i])
 	{
-		if (i < 10)
-			ft_printf("tab[%u]  : |%s|\n", i, tab[i]);
-		else
-			ft_printf("tab[%u] : |%s|\n", i, tab[i]);
+		j = 0;
+		while (tab[i][j])
+		{
+			if (tab[i][j] < 0)
+				tab[i][j] = tab[i][j] * -1;
+			j++;
+		}
 		i++;
 	}
-	ft_printf("----\n\n");
 }
 
 char	*append_cmd(char const *s1, char const *s2)

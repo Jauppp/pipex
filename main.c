@@ -5,34 +5,31 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/13 17:06:26 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/02/16 13:32:51 by cdomet-d         ###   ########lyon.fr   */
+/*   Created: 2024/02/26 13:47:10 by cdomet-d          #+#    #+#             */
+/*   Updated: 2024/02/26 17:27:19 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	main(int argc, char *argv[], char **envp)
+int	main(int argc, char *argv[], char *envp[])
 {
 	t_var	var;
-	t_proc	id;
 
+	if (argc < 2)
+		print_error(0, "Please enter at least two arguments");
+	if (access(argv[1], R_OK) == -1)
+		print_error(errno, NULL);
 	init_var(&var);
-	(void)argc;
+	var.fd[0] = open(argv[1], O_RDONLY);
+	// var.fd[1] = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	fetch_path(envp, &var);
-	fetch_args(argv, &var);
-	display_tab(var.args);
-	find_absolute_path(&var);
-	printf("absolute path : %s\n\n", var.a_path);
-	id.p1 = fork();
-	if (id.p1 == 0)
+	while (var.i < (argc - 1))
 	{
-		if (execve(var.a_path, var.args, envp) == -1)
-			free_var(&var, EXIT_FAILURE, strerror(errno));
-		printf("This is the child process ! id = %d\n", id.p1);
+		fetch_args(argv, &var);
+		find_absolute_path(&var);
+		printf("%s\n", var.apath);
+		display_tab(var.args, "Arguments");
 	}
-	if (id.p1 != 0)
-		wait(NULL);
-	printf("Parent process, id = %d\n", id.p1);
 	free_var(&var, EXIT_SUCCESS, NULL);
 }
