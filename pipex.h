@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 17:02:04 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/02/15 17:31:29 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/02/16 13:30:52 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,9 @@ void	display_tab(char **tab);
 char	*append_cmd(char const *s1, char const *s2);
 size_t	count_words(const char *s, char c);
 
+/* Tokenization */
+void	tokenize(char *str);
+void	reverse_tokenize(char **tab);
 
 /* Split cmd */
 char	**split_cmd(char const *s, char c);

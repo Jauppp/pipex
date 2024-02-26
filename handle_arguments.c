@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:50:16 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/02/15 17:36:38 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/02/16 13:33:37 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,20 @@ void	fetch_args(char **argv, t_var *var)
 
 	temp = NULL;
 	i = 2;
-	// j = 0;
 	while (argv[i])
 	{
 		if (temp)
 			free(temp);
-		var->args = split_cmd(argv[i], ' ');
+		temp = ft_strdup(argv[i]);
+		tokenize(temp);
+		var->args = ft_split(temp, ' ');
+		reverse_tokenize(var->args);
 		if (!var->args)
 			free_var(var, errno, "Allocation for var->arg failed");
 		i++;
 	}
+	if (temp)
+		free (temp);
 }
 
 void	fetch_files(char **argv, t_var *var)

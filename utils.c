@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 15:04:15 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/02/15 17:35:10 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/02/16 15:53:26 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,16 @@ void	display_tab(char **tab)
 	unsigned int	i;
 
 	ft_printf("\n----\n");
-	i = -1;
-	while (tab[++i])
+	i = 0;
+	while (tab[i])
 	{
 		if (i < 10)
 			ft_printf("tab[%u]  : |%s|\n", i, tab[i]);
 		else
 			ft_printf("tab[%u] : |%s|\n", i, tab[i]);
+		i++;
 	}
-	ft_printf("----\n");
+	ft_printf("----\n\n");
 }
 
 char	*append_cmd(char const *s1, char const *s2)
