@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 15:04:15 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/02/26 17:05:19 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/02/26 17:34:39 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,30 +90,4 @@ char	*append_cmd(char const *s1, char const *s2)
 	while (s2[j])
 		strjoin[i++] = s2[j++];
 	return (strjoin);
-}
-
-size_t	count_words(const char *s, char c)
-{
-	size_t	i;
-	size_t	count;
-
-	i = 0;
-	count = 0;
-	while (s[i] == c)
-		i++;
-	while (s[i])
-	{
-		if (s[i] == c && s[i - 1] != c)
-			count++;
-		if (s[i] == DQUOTE || s[i] == SQUOTE)
-		{
-			while (s[i] && (s[i] != DQUOTE || s[i] != SQUOTE))
-				i++;
-		}
-		if (s[i])
-			i++;
-	}
-	if (s[i - 1] == c)
-		count--;
-	return (count + 1);
 }
