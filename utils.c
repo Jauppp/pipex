@@ -6,15 +6,16 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 15:04:15 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/02/26 17:34:39 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/02/27 16:13:41 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	init_var(t_var	*var)
+void	init_var(t_var	*var, int argc)
 {
 	var->apath = NULL;
+	var->argc = argc;
 	var->args = NULL;
 	var->fd[0] = 0;
 	var->fd[1] = 0;

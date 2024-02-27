@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:25:05 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/02/26 10:48:11 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/02/27 16:27:25 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,30 @@ void	display_tab(char **tab, char *str)
 {
 	unsigned int	i;
 
-	ft_printf("\n----\n");
-	printf("%s\n", str);
+	// ft_printf("\n----\n");
+	printf("| %s |\n", str);
+	// ft_printf("\n----\n");
 	i = 0;
-	while (tab[i])
+	while (tab && tab[i])
 	{
 		if (i < 10)
-			ft_printf("tab[%u]  : |%s|\n", i, tab[i]);
+			printf("tab[%u]  : |%s|\n", i, tab[i]);
 		else
-			ft_printf("tab[%u] : |%s|\n", i, tab[i]);
+			printf("tab[%u] : |%s|\n", i, tab[i]);
 		i++;
 	}
+	ft_printf("\n----\n\n");
+}
+
+void	display_t_var(t_var var)
+{
+	ft_printf("\n----\n");
+	display_tab(var.paths, "Paths");
+	display_tab(var.args, "Arguments");
+	ft_printf("Absolute path : %s\n", var.apath);
+	ft_printf("fd : %d || %d\n", var.fd[0], var.fd[1]);
+	ft_printf("id : %d || %d\n", var.id[0], var.id[1]);
+	ft_printf("argc : %d\n", var.argc);
+	ft_printf("i : %d\n", var.i);
 	ft_printf("----\n\n");
 }

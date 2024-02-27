@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:50:16 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/02/26 17:35:30 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/02/27 16:03:18 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	fetch_path(char **envp, t_var *var)
 	}
 }
 
-void	find_absolute_path(t_var *var)
+void	fetch_apath(t_var *var)
 {
 	size_t	i;
 
@@ -45,12 +45,12 @@ void	find_absolute_path(t_var *var)
 			free(var->apath);
 		var->apath = append_cmd(var->paths[i], var->args[0]);
 		if (!var->apath)
-			free_var(var, errno, "Append failed");
+			free_var(var, 0, "Append failed");
 		if (access(var->apath, F_OK) == 0)
 			return ;
 		i++;
 	}
-	free_var(var, errno, NULL);
+	free_var(var, 0, "meh");
 }
 
 void	fetch_args(char **argv, t_var *var)

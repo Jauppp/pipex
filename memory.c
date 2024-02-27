@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 11:29:41 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/02/26 17:26:22 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/02/27 17:41:57 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,3 @@ void	reinit(char *temp)
 	free(temp);
 	temp = NULL;
 }
-
