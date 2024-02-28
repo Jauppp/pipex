@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:25:05 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/02/27 16:27:25 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/02/28 11:51:47 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	display_t_var(t_var var)
 	display_tab(var.args, "Arguments");
 	ft_printf("Absolute path : %s\n", var.apath);
 	ft_printf("fd : %d || %d\n", var.fd[0], var.fd[1]);
-	ft_printf("id : %d || %d\n", var.id[0], var.id[1]);
+	// ft_printf("id : %d\n", var.id);
 	ft_printf("argc : %d\n", var.argc);
 	ft_printf("i : %d\n", var.i);
 	ft_printf("----\n\n");

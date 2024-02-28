@@ -6,7 +6,7 @@
 #    By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 10:23:52 by cdomet-d          #+#    #+#              #
-#    Updated: 2024/02/27 16:05:28 by cdomet-d         ###   ########lyon.fr    #
+#    Updated: 2024/02/28 11:30:12 by cdomet-d         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,11 @@ $(LIBFT_DIR)/$(LIB): FORCE
 	@echo "$(RESET)"
 
  -include $(DEPS)
+
+clout:
+	rm -f out
+	rm -f outfile
+	rm -f outsh
 
 clean:
 	@echo "$(FAINT)"

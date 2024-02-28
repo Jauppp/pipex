@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 15:04:15 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/02/27 16:13:41 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/02/28 13:12:45 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,16 @@ void	tokenize(char *str)
 		{
 			quote = true;
 			c = str[i];
+			str[i] = ' ';
 			i++;
 		}
 		if (quote == true && str[i] == ' ')
 			str[i] = str[i] * -1;
 		if (quote == true && str[i] == c)
-			quote = false;
+		{
+			str[i] = ' ';
+			quote = false;	
+		}
 		i++;
 	}
 }
