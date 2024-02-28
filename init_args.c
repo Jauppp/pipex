@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:50:16 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/02/28 12:43:43 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/02/28 18:41:33 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	fetch_apath(t_var *var)
 			return ;
 		i++;
 	}
-	free_var(var, 0, "Absolute path not found");
+	free_var(var, errno, NULL);
 }
 
 void	fetch_args(char **argv, t_var *var)
