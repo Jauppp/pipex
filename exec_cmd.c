@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:03:59 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/02/29 15:01:46 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/02/29 15:05:56 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ void	exec_last_cmd(t_var *var)
 	if (dup2(var->fd1[R], STDIN_FILENO) == -1)
 		free_var(var, errno, NULL);
 	close(var->fd1[R]);
-	// if (dup2(var->files[W], STDOUT_FILENO) == -1)
-	// 	free_var(var, errno, NULL);
+	if (dup2(var->files[W], STDOUT_FILENO) == -1)
+		free_var(var, errno, NULL);
 	var->id = fork();
 	if (var->id == -1)
 		free_var(var, errno, NULL);
