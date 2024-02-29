@@ -1,0 +1,45 @@
+Max — Aujourd’hui à 14:57
+elle est installe depuis janvier selon la personne de l'accueil
+oui mais si c'est faisable pour eux c'est faisable pour nous c'est bon on est la plus grosse ecole du campus, sans nous y'a juste pas de campus en fait
+donc le bocal la s'agirait qu'ils arrettent de mytho et juste qu'ils le disent qu'ils ont pas envie de s'en occuper de cette histoire de badgeuse
+Jauseff Park 🍓 — Aujourd’hui à 15:02
+tu peux cloner
+moi ils m'avaient dit que c'etait qu'ils etaient inquiets qu'on se passe les badges pour frauder le logtime
+vu qu'ils peuvent pas verifier qui badge
+Max — Aujourd’hui à 15:07
+ouais contrairement a quand je fraude en loggant jerem a sa place
+Jauseff Park 🍓 — Aujourd’hui à 15:08
+je veux bien en discuter a une autre occasion si c'est OK ahaha
+Max — Aujourd’hui à 15:09
+De toute facon j'ai plus rien a dire sur le sujet
+Jauseff Park 🍓 — Aujourd’hui à 15:10
+je suis d'accord que c'est relou et frustrant
+mais la j'ai envie de manger du sable sur ce projet de morts et je voudrais juste etre debarasse
+Max — Aujourd’hui à 15:11
+bah ca marche avec plusieurs commande
+genre 4 ls ca marche
+Jauseff Park 🍓 — Aujourd’hui à 15:14
+ah bon ?
+Max — Aujourd’hui à 15:14
+pas avec cat par contre
+Jauseff Park 🍓 — Aujourd’hui à 15:14
+ah oui
+Max — Aujourd’hui à 15:14
+mais 4 ls ouais ca marche
+Jauseff Park 🍓 — Aujourd’hui à 15:14
+oui mais menfou que ca marche avec une commande ahahhaa
+pardon je suis irritee
+mais non cat ca marche par grep ca marche pas non plus
+Max — Aujourd’hui à 15:15
+ok alors interessant
+./pipex in "cat in" cat out
+ca ca marche pas
+j'ai pas le contenu de in dans out a la fin
+Jauseff Park 🍓 — Aujourd’hui à 15:15
+vouip
+Max — Aujourd’hui à 15:15
+./pipex in "cat in" "cat in" out 
+ca ca marche
+donc
+l'info pase pas du pipe un au deux
+du coup dans le cas des ls c'est juste que le 4eme marche jsuis un bot
