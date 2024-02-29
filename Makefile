@@ -6,7 +6,7 @@
 #    By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 10:23:52 by cdomet-d          #+#    #+#              #
-#    Updated: 2024/02/28 11:30:12 by cdomet-d         ###   ########lyon.fr    #
+#    Updated: 2024/02/29 10:48:08 by cdomet-d         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ OBJS := $(addprefix $(BUILD_DIR)/, $(SRCS:%.c=%.o))
 DEPS := $(OBJS:%.o=%.d)
 RM := rm -rf
 
-all: $(NAME)
+all: $(NAME) clout
 
 $(NAME): $(LIBFT_DIR)/$(LIB) $(OBJS)
 	@echo
@@ -58,6 +58,7 @@ clout:
 	rm -f out
 	rm -f outfile
 	rm -f outsh
+	rm -f oush
 
 clean:
 	@echo "$(FAINT)"

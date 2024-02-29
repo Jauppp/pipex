@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:25:05 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/02/28 17:23:52 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/02/29 11:36:12 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,9 @@ void	display_fds(t_var var)
 {
 	fprintf(stderr, "fd1[0], %d\n", var.fd1[0]);
 	fprintf(stderr, "fd1[1], %d\n", var.fd1[1]);
-	fprintf(stderr, "fd2[0], %d\n", var.fd2[0]);
-	fprintf(stderr, "fd2[1], %d\n", var.fd2[1]);
+	fprintf(stderr, "file[0], %d\n", var.files[0]);
+	fprintf(stderr, "file[1], %d\n", var.files[1]);
+	// fprintf(stderr, "fd2[0], %d\n", var.fd2[0]);
+	// fprintf(stderr, "fd2[1], %d\n", var.fd2[1]);
 	fprintf(stderr, "----\n");
 }

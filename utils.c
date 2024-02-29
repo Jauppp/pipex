@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 15:04:15 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/02/28 15:05:11 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/02/29 11:44:44 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 void	init_var(t_var	*var, int argc)
 {
-	var->apath = NULL;
+	var->aPath = NULL;
 	var->argc = argc;
 	var->args = NULL;
 	var->fd1[0] = 0;
 	var->fd1[1] = 0;
+	var->files[0] = 0;
+	var->files[1] = 0;
 	var->fd2[0] = 0;
 	var->fd2[1] = 0;
 	var->i = 2;

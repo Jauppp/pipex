@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 17:02:04 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/02/28 17:23:49 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/02/29 11:45:18 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,16 @@
 
 # define DQUOTE 34
 # define SQUOTE 39
+# define R	0
+# define W	1
 
 typedef struct s_var
 {
 	char	**paths;
 	char	**args;
-	char	*apath;
+	char	*aPath;
+	int		tmpOut;
+	int		files[2];
 	int		fd1[2];
 	int		fd2[2];
 	int 	argc;
@@ -57,7 +61,8 @@ void	tokenize(char *str);
 /* Init args */
 void	fetch_path(char **envp, t_var *var);
 void	fetch_args(char **argv, t_var *var);
-void	fetch_apath(t_var *var);
+void	fetch_files(char **argv, t_var *var);
+void	fetch_aPath(t_var *var);
 
 /* Memory */
 void	free_var(t_var *var, int exit_code, char *error_message);
@@ -65,9 +70,9 @@ void	free_dtab(char **dtab);
 void	reinit(char *temp);
 
 /* Exec_cmd */
-void	exec_first_cmd(char *argv[], char *envp[], t_var *var);
-void	exec_last_cmd(char *argv[], char *envp[], t_var *var);
-void	exec_cmd(char *envp[], t_var *var);
+void	exec_first_cmd(t_var *var);
+void	exec_last_cmd(t_var *var);
+void	exec_cmd(t_var *var);
 
 
 #endif

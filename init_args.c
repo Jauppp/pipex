@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:50:16 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/02/28 18:41:33 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/02/29 11:43:20 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,19 @@ void	fetch_path(char **envp, t_var *var)
 	}
 }
 
-void	fetch_apath(t_var *var)
+void	fetch_aPath(t_var *var)
 {
 	size_t	i;
 
 	i = 0;
 	while (var->paths[i])
 	{
-		if (var->apath)
-			free(var->apath);
-		var->apath = append_cmd(var->paths[i], var->args[0]);
-		if (!var->apath)
+		if (var->aPath)
+			free(var->aPath);
+		var->aPath = append_cmd(var->paths[i], var->args[0]);
+		if (!var->aPath)
 			free_var(var, 0, "Append failed");
-		if (access(var->apath, F_OK) == 0)
+		if (access(var->aPath, F_OK) == 0)
 			return ;
 		i++;
 	}
@@ -70,4 +70,14 @@ void	fetch_args(char **argv, t_var *var)
 	if (!var->args)
 		free_var(var, errno, NULL);
 	var->i++;
+}
+
+void	fetch_files(char **argv, t_var *var)
+{
+	var->files[R] = open(argv[1], O_RDONLY);
+	if (var->files[R] == -1)
+		free_var(var, errno, NULL);
+	var->files[W] = open(argv[var->argc - 1], O_CREAT | O_TRUNC | O_RDWR, 0777);
+	if (var->files[W] == -1)
+		free_var(var, errno, NULL);
 }

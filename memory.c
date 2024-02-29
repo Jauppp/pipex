@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 11:29:41 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/02/27 17:41:57 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/02/29 11:44:23 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	free_var(t_var *var, int exit_code, char *error_message)
 		free_dtab(var->paths);
 	if (var->args)
 		free_dtab(var->args);
-	if (var->apath)
-		free(var->apath);
+	if (var->aPath)
+		free(var->aPath);
 	if (exit_code || error_message)
 		print_error(exit_code, error_message);
 	else

@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:47:10 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/02/28 18:36:31 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/02/29 11:57:45 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,34 @@ int	main(int argc, char *argv[], char *envp[])
 {
 	t_var	var;
 
+	printf("%d\n", getpid());
 	if (argc < 4)
 		print_error(1200, NULL);
 	if (access(argv[1], R_OK) == -1)
 		print_error(errno, NULL);
 	init_var(&var, argc);
 	fetch_path(envp, &var);
+	// fetch_files(argv, &var);
 	while (var.i < (argc - 1))
 	{
 		fetch_args(argv, &var);
-		fetch_apath(&var);
+		fetch_aPath(&var);
 		if (var.i == 3)
-			exec_first_cmd(argv, envp, &var);
-		else if (var.i > 3 && (var.i < argc - 1))
-			exec_cmd(envp, &var);
+		{
+			var.files[R] = open(argv[1], O_RDONLY);
+			if (var.files[R] == -1)
+				free_var(&var, errno, NULL);
+			exec_first_cmd(&var);
+		}	
+		else if (var.i == (argc - 1))
+		{
+			var.files[W] = open(argv[argc - 1], O_CREAT | O_TRUNC | O_RDWR, 0777);
+			if (var.files[W] == -1)
+				free_var(&var, errno, NULL);
+			exec_last_cmd(&var);
+		}
 		else
-			exec_last_cmd(argv, envp, &var);
+			exec_cmd(&var);
 	}
 	free_var(&var, EXIT_SUCCESS, NULL);
 }
