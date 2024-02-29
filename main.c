@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:47:10 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/02/29 11:57:45 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/02/29 13:47:15 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	main(int argc, char *argv[], char *envp[])
 {
-	t_var	var;
+	t_var var;
 
 	printf("%d\n", getpid());
 	if (argc < 4)
@@ -23,23 +23,38 @@ int	main(int argc, char *argv[], char *envp[])
 		print_error(errno, NULL);
 	init_var(&var, argc);
 	fetch_path(envp, &var);
-	// fetch_files(argv, &var);
 	while (var.i < (argc - 1))
 	{
 		fetch_args(argv, &var);
 		fetch_aPath(&var);
+		if (pipe(var.fd1) == -1)
+			free_var(&var, errno, NULL);
 		if (var.i == 3)
 		{
+			close(var.fd1[R]);
 			var.files[R] = open(argv[1], O_RDONLY);
-			if (var.files[R] == -1)
+			if (var.files[R] == -1)	
 				free_var(&var, errno, NULL);
+			if (dup2(var.files[R], STDIN_FILENO) == -1)
+				free_var(&var, errno, NULL);
+			if (dup2(var.fd1[W], STDOUT_FILENO) == -1)
+				free_var(&var, errno, NULL);
+			close(var.files[R]);
+			close(var.fd1[W]);
 			exec_first_cmd(&var);
 		}	
 		else if (var.i == (argc - 1))
 		{
+			close(var.fd1[W]);
 			var.files[W] = open(argv[argc - 1], O_CREAT | O_TRUNC | O_RDWR, 0777);
 			if (var.files[W] == -1)
 				free_var(&var, errno, NULL);
+			if (dup2(var.fd1[R], STDIN_FILENO) == -1)
+				free_var(&var, errno, NULL);
+			if (dup2(var.files[W], STDOUT_FILENO) == -1)
+				free_var(&var, errno, NULL);
+			close(var.fd1[R]);
+			close(var.files[W]);
 			exec_last_cmd(&var);
 		}
 		else
