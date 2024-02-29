@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:47:10 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/02/29 16:21:58 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/02/29 18:18:02 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	main(int argc, char *argv[], char *envp[])
 		fetch_aPath(&var);
 		if (pipe(var.fd1) == -1)
 			free_var(&var, errno, NULL);
-		var.tmpIn = var.fd1[R];
 		if (var.i == 3)
 		{
 			var.files[R] = open(argv[1], O_RDONLY);
@@ -44,8 +43,10 @@ int	main(int argc, char *argv[], char *envp[])
 			exec_last_cmd(&var);
 		}
 		else
+		{
 			exec_cmd(&var);
+			close(var.fd1[R]);
+		}
 	}
-	display_fds(var);
 	free_var(&var, EXIT_SUCCESS, NULL);
 }
