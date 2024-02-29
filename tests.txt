@@ -1,0 +1,9 @@
+tests
+
+/* Three */
+valgrind --quiet --track-fds=yes ./pipex DS3 cat "grep 'Lothric'" "wc -l" out
+< DS3 cat | grep 'Lothric' | wc -l > outsh
+
+/* Two */
+valgrind --quiet --track-fds=yes ./pipex DS3 cat "wc -l" out
+< DS3 cat | wc -l > outsh

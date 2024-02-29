@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 17:02:04 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/02/29 11:45:18 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/02/29 14:15:15 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_var
 	char	**paths;
 	char	**args;
 	char	*aPath;
-	int		tmpOut;
+	int		tmpIn;
 	int		files[2];
 	int		fd1[2];
 	int		fd2[2];
