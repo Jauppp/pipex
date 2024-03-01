@@ -6,20 +6,20 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 11:29:41 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/02/29 11:44:23 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/01 18:28:33 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	free_var(t_var *var, int exit_code, char *error_message)
+void	free_v(t_v *v, int exit_code, char *error_message)
 {
-	if (var->paths)
-		free_dtab(var->paths);
-	if (var->args)
-		free_dtab(var->args);
-	if (var->aPath)
-		free(var->aPath);
+	if (v->paths)
+		free_dtab(v->paths);
+	if (v->args)
+		free_dtab(v->args);
+	if (v->a_path)
+		free(v->a_path);
 	if (exit_code || error_message)
 		print_error(exit_code, error_message);
 	else

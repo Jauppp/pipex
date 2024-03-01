@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:25:05 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/02/29 11:36:12 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/01 18:28:33 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,27 +28,25 @@ void	display_tab(char **tab, char *str)
 	printf("\n");
 }
 
-void	display_t_var(t_var var)
+void	display_t_v(t_v v)
 {
 	// ft_printf("\n----\n");
-	// display_tab(var.paths, "Paths");
-	display_tab(var.args, "Arguments");
-	// ft_printf("Absolute path : %s\n", var.apath);
-	ft_printf("fd1[0] : %d || fd1[1] %d\n", var.fd1[0], var.fd1[1]);
-	ft_printf("fd2[0] : %d || fd2[1] %d\n", var.fd2[0], var.fd2[1]);
-	// ft_printf("id : %d\n", var.id);
-	// ft_printf("argc : %d\n", var.argc);
-	// ft_printf("i : %d\n", var.i);
+	// display_tab(v.paths, "Paths");
+	display_tab(v.args, "Arguments");
+	// ft_printf("Absolute path : %s\n", v.a_path);
+	ft_printf("fd[0] : %d || fd[1] %d\n", v.fd[0], v.fd[1]);
+	// ft_printf("id : %d\n", v.id);
+	// ft_printf("argc : %d\n", v.argc);
+	// ft_printf("i : %d\n", v.i);
 	// ft_printf("----\n\n");
 }
 
-void	display_fds(t_var var)
+void	display_fds(t_v v)
 {
-	fprintf(stderr, "fd1[0], %d\n", var.fd1[0]);
-	fprintf(stderr, "fd1[1], %d\n", var.fd1[1]);
-	fprintf(stderr, "file[0], %d\n", var.files[0]);
-	fprintf(stderr, "file[1], %d\n", var.files[1]);
-	// fprintf(stderr, "fd2[0], %d\n", var.fd2[0]);
-	// fprintf(stderr, "fd2[1], %d\n", var.fd2[1]);
+	fprintf(stderr, "fd[0], %d\n", v.fd[0]);
+	fprintf(stderr, "fd[1], %d\n", v.fd[1]);
+	fprintf(stderr, "file[0], %d\n", v.file[0]);
+	fprintf(stderr, "file[1], %d\n", v.file[1]);
+	fprintf(stderr, "tmp.In %d\n", v.tmp_in);
 	fprintf(stderr, "----\n");
 }

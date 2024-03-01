@@ -6,27 +6,25 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 15:04:15 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/02/29 17:44:11 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/01 18:28:33 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	init_var(t_var	*var, int argc)
+void	init_v(t_v	*v, int argc)
 {
-	var->aPath = NULL;
-	var->argc = argc;
-	var->args = NULL;
-	var->fd1[0] = 0;
-	var->fd1[1] = 0;
-	var->files[0] = 0;
-	var->files[1] = 0;
-	var->fd2[0] = 0;
-	var->fd2[1] = 0;
-	var->tmpIn = 0;
-	var->i = 2;
-	var->id = 0;
-	var->paths = NULL;
+	v->a_path = NULL;
+	v->ac = argc;
+	v->args = NULL;
+	v->fd[0] = 0;
+	v->fd[1] = 0;
+	v->file[0] = 0;
+	v->file[1] = 0;
+	v->i = 2;
+	v->id = 0;
+	v->paths = NULL;
+	v->tmp_in = 0;
 }
 
 void	tokenize(char *str)
@@ -51,7 +49,7 @@ void	tokenize(char *str)
 		if (quote == true && str[i] == c)
 		{
 			str[i] = ' ';
-			quote = false;	
+			quote = false;
 		}
 		i++;
 	}

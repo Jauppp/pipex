@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:20:53 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/02/15 15:10:05 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/01 18:28:33 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdlib.h> // for malloc
 # include <unistd.h> // for write
 # include <stdint.h> // for SIZE_MAX
-# include <stdarg.h> // for variadic functions handling
+# include <stdarg.h> // for viadic functions handling
 # include <limits.h> // NULL, MAX_INT, etc...
 
 /* GNL */

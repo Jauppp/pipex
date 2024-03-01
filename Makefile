@@ -6,7 +6,7 @@
 #    By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 10:23:52 by cdomet-d          #+#    #+#              #
-#    Updated: 2024/02/29 10:48:08 by cdomet-d         ###   ########lyon.fr    #
+#    Updated: 2024/03/01 16:43:56 by cdomet-d         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,10 +55,10 @@ $(LIBFT_DIR)/$(LIB): FORCE
  -include $(DEPS)
 
 clout:
-	rm -f out
-	rm -f outfile
-	rm -f outsh
-	rm -f oush
+	@rm -f out
+	@rm -f outfile
+	@rm -f outsh
+	@rm -f oush
 
 clean:
 	@echo "$(FAINT)"

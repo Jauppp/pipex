@@ -6,13 +6,13 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:50:16 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/02/29 11:43:20 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/01 18:28:33 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	fetch_path(char **envp, t_var *var)
+void	fetch_path(char **envp, t_v *v)
 {
 	size_t	i;
 	char	*path;
@@ -24,60 +24,64 @@ void	fetch_path(char **envp, t_var *var)
 		{
 			path = ft_substr(envp[i], 5, ft_strlen(envp[i]));
 			if (!path)
-				free_var(var, errno, NULL);
-			var->paths = ft_split(path, ':');
+				free_v(v, errno, NULL);
+			v->paths = ft_split(path, ':');
 			free(path);
-			if (!var->paths)
-				free_var(var, errno, NULL);
+			if (!v->paths)
+				free_v(v, errno, NULL);
 		}
 		i++;
 	}
 }
 
-void	fetch_aPath(t_var *var)
+int	fetch_a_path(char *argv[], t_v *v)
 {
 	size_t	i;
 
 	i = 0;
-	while (var->paths[i])
+	fetch_args(argv, v);
+	if (access(v->args[0], F_OK) == 0)
+		return (EXIT_SUCCESS);
+	while (v->paths[i])
 	{
-		if (var->aPath)
-			free(var->aPath);
-		var->aPath = append_cmd(var->paths[i], var->args[0]);
-		if (!var->aPath)
-			free_var(var, 0, "Append failed");
-		if (access(var->aPath, F_OK) == 0)
-			return ;
+		if (v->a_path)
+			free(v->a_path);
+		v->a_path = append_cmd(v->paths[i], v->args[0]);
+		if (!v->a_path)
+			free_v(v, 0, "Append failed");
+		if (access(v->a_path, F_OK) == 0)
+			return (EXIT_SUCCESS);
 		i++;
 	}
-	free_var(var, errno, NULL);
+	ft_printf("pipex: %s: %s\n", strerror(errno), v->args[0]);
+	return (EXIT_FAILURE);
 }
 
-void	fetch_args(char **argv, t_var *var)
+void	fetch_args(char **argv, t_v *v)
 {
 	char	*temp;
 
-	if (var->args)
-		free_dtab(var->args);
-	if (var->i == var->argc - 1)
+	if (v->args)
+		free_dtab(v->args);
+	if (v->i == v->ac - 1)
 		return ;
 	temp = NULL;
-	temp = ft_strdup(argv[var->i]);
+	temp = ft_strdup(argv[v->i]);
 	tokenize(temp);
-	var->args = ft_split(temp, ' ');
+	v->args = ft_split(temp, ' ');
 	reinit(temp);
-	reverse_tokenize(var->args);
-	if (!var->args)
-		free_var(var, errno, NULL);
-	var->i++;
+	reverse_tokenize(v->args);
+	if (!v->args)
+		free_v(v, errno, NULL);
+	v->i++;
 }
 
-void	fetch_files(char **argv, t_var *var)
+void	fetch_files(char **argv, t_v *v)
 {
-	var->files[R] = open(argv[1], O_RDONLY);
-	if (var->files[R] == -1)
-		free_var(var, errno, NULL);
-	var->files[W] = open(argv[var->argc - 1], O_CREAT | O_TRUNC | O_RDWR, 0777);
-	if (var->files[W] == -1)
-		free_var(var, errno, NULL);
+	v->file[R] = open(argv[1], O_RDONLY);
+	if (v->file[R] == -1)
+		free_v(v, errno, NULL);
+	v->file[W] = open(argv[v->ac - 1], O_CREAT | O_TRUNC | O_RDWR, 0777);
+	if (v->file[W] == -1)
+		free_v(v, errno, NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:47:10 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/02/29 18:18:02 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/01 18:33:35 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,39 +14,26 @@
 
 int	main(int argc, char *argv[], char *envp[])
 {
-	t_var var;
+	t_v	v;
 
+	if (!envp || !*envp)
+		print_error(0, "No environment");
 	if (argc < 4)
 		print_error(1200, NULL);
-	if (access(argv[1], R_OK) == -1)
-		print_error(errno, NULL);
-	init_var(&var, argc);
-	fetch_path(envp, &var);
-	while (var.i < (argc - 1))
+	init_v(&v, argc);
+	fetch_path(envp, &v);
+	while (v.i < (argc - 1))
 	{
-		fetch_args(argv, &var);
-		fetch_aPath(&var);
-		if (pipe(var.fd1) == -1)
-			free_var(&var, errno, NULL);
-		if (var.i == 3)
-		{
-			var.files[R] = open(argv[1], O_RDONLY);
-			if (var.files[R] == -1)	
-				free_var(&var, errno, NULL);
-			exec_first_cmd(&var);
-		}	
-		else if (var.i == (argc - 1))
-		{
-			var.files[W] = open(argv[argc - 1], O_CREAT | O_TRUNC | O_RDWR, 0777);
-			if (var.files[W] == -1)
-				free_var(&var, errno, NULL);
-			exec_last_cmd(&var);
-		}
-		else
-		{
-			exec_cmd(&var);
-			close(var.fd1[R]);
-		}
+		fetch_a_path(argv, &v);
+		if (pipe(v.fd) == -1)
+			free_v(&v, errno, NULL);
+		fork_and_exec(&v, argv);
+		dup2(v.fd[R], v.tmp_in);
+		close(v.fd[W]);
+		close(v.fd[R]);
 	}
-	free_var(&var, EXIT_SUCCESS, NULL);
+	close(v.tmp_in);
+	v.tmp_in = 0;
+	while (wait(0) != -1 && errno != ECHILD);
+	free_v(&v, EXIT_SUCCESS, NULL);
 }
