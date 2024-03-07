@@ -6,11 +6,12 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 09:35:46 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/02/15 15:14:00 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/07 14:47:13 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 static char	*ft_callocword(char const *s, char sep, size_t current_word)
 {
@@ -71,8 +72,8 @@ char	**ft_split(char const *s, char c)
 	char		**arr;
 
 	i = 0;
-	if (!s || !s[i])
-		return (ft_calloc(1, sizeof (char *)));
+	if (!s || !s[i] || !ft_countwords(s, c))
+		return (NULL);
 	nb_words = ft_countwords(s, c);
 	arr = ft_calloc(nb_words + 1, sizeof (char *));
 	if (!arr)

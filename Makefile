@@ -6,7 +6,7 @@
 #    By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 10:23:52 by cdomet-d          #+#    #+#              #
-#    Updated: 2024/03/01 16:43:56 by cdomet-d         ###   ########lyon.fr    #
+#    Updated: 2024/03/07 16:25:35 by cdomet-d         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,13 +20,13 @@ CFLAGS := -Werror -Wextra -Wall -g3
 CPPFLAGS = -MMD -MP
 MAKEFLAGS += --no-print-directory
 
-SRCS := display.c \
-		errors.c \
+SRCS := errors.c \
 		init_args.c \
 		main.c \
 		memory.c \
 		utils.c \
 		exec_cmd.c \
+		display.c \
 
 OBJS := $(addprefix $(BUILD_DIR)/, $(SRCS:%.c=%.o))
 DEPS := $(OBJS:%.o=%.d)
@@ -36,11 +36,11 @@ all: $(NAME) clout
 
 $(NAME): $(LIBFT_DIR)/$(LIB) $(OBJS)
 	@echo
-	@echo "$(PURPLE)|========== \t\t Making PIPEX \t\t ===========|$(BLACK)"
+	@echo "$(PURPLE)|========== \t\t Making PIPEX \t\t ===========|$(RESET)"
 	@echo
 	$(CC) $(CFLAGS) $(OBJS) -L$(LIBFT_DIR) -o $(NAME) -lft
 	@echo
-	@echo "$(GREEN)|=========== \t\t PIPEX done ! \t\t ===========|$(BLACK)"
+	@echo "$(GREEN)|=========== \t\t PIPEX done ! \t\t ===========|$(RESET)"
 	@echo
 
 $(BUILD_DIR)/%.o:%.c pipex.h $(LIBFT_DIR)/libft.h Makefile
@@ -55,25 +55,27 @@ $(LIBFT_DIR)/$(LIB): FORCE
  -include $(DEPS)
 
 clout:
-	@rm -f out
-	@rm -f outfile
-	@rm -f outsh
-	@rm -f oush
+	rm -f out
+	@echo
+	@echo "$(BLUE)|===========================================================|$(RESET)"
 
 clean:
+	@echo
+	@echo "$(CYAN)|========== \t\t Running clean... \t ===========|$(RESET)"
 	@echo "$(FAINT)"
-	@echo
-	@echo "$(PURPLE)|========== \t\t Cleaning... \t\t ===========|$(BLACK)"
-	@echo
 	$(RM) $(BUILD_DIR)
 	make -C $(LIBFT_DIR) $@
-
+	@echo "$(RESET)"
+	@echo "$(CYAN)|=========== \t\t Done ! \t\t ===========|$(RESET)"
+	@echo
+	
 fclean: clean
+	@echo "$(CYAN)|========== \t\t Running fclean... \t ===========|$(RESET)"
 	@echo "$(FAINT)"
 	make -C $(LIBFT_DIR) $@
 	$(RM) $(NAME)
-	@echo
-	@echo "$(PURPLE)|========== \t\t Bye <3 \t\t ===========|$(BLACK)"
+	@echo "$(RESET)"
+	@echo "$(CYAN)|========== \t\t Bye <3 \t\t ===========|$(RESET)"
 	@echo
 
 re: fclean all
@@ -97,9 +99,11 @@ kitty:
 	@echo "-(((---(((--------"
 
 # Colors
-BLACK=\033[30m
+BLUE=\033[0;34m
+CYAN=\033[0;36m
 GREEN=\033[32m
 PURPLE=\033[35m
+BG_CYAN=\033[46m
 
 # Text
 RESET=\033[0m

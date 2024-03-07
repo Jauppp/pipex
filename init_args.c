@@ -6,13 +6,13 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:50:16 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/01 18:28:33 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/07 14:41:44 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	fetch_path(char **envp, t_v *v)
+void	fetch_path(char **envp, t_var *v)
 {
 	size_t	i;
 	char	*path;
@@ -34,7 +34,7 @@ void	fetch_path(char **envp, t_v *v)
 	}
 }
 
-int	fetch_a_path(char *argv[], t_v *v)
+int	fetch_a_path(char *argv[], t_var *v)
 {
 	size_t	i;
 
@@ -57,31 +57,31 @@ int	fetch_a_path(char *argv[], t_v *v)
 	return (EXIT_FAILURE);
 }
 
-void	fetch_args(char **argv, t_v *v)
+void	fetch_args(char **argv, t_var *v)
 {
 	char	*temp;
 
 	if (v->args)
 		free_dtab(v->args);
-	if (v->i == v->ac - 1)
+	if (v->i == v->ac)
 		return ;
 	temp = NULL;
 	temp = ft_strdup(argv[v->i]);
 	tokenize(temp);
 	v->args = ft_split(temp, ' ');
 	reinit(temp);
-	reverse_tokenize(v->args);
 	if (!v->args)
 		free_v(v, errno, NULL);
+	reverse_tokenize(v->args);
 	v->i++;
 }
 
-void	fetch_files(char **argv, t_v *v)
+void	fetch_files(char **argv, t_var *v)
 {
 	v->file[R] = open(argv[1], O_RDONLY);
 	if (v->file[R] == -1)
 		free_v(v, errno, NULL);
-	v->file[W] = open(argv[v->ac - 1], O_CREAT | O_TRUNC | O_RDWR, 0777);
+	v->file[W] = open(argv[v->ac], O_CREAT | O_TRUNC | O_RDWR, 0777);
 	if (v->file[W] == -1)
 		free_v(v, errno, NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:47:10 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/01 18:33:35 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/07 16:45:31 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 int	main(int argc, char *argv[], char *envp[])
 {
-	t_v	v;
+	t_var	v;
 
 	if (!envp || !*envp)
-		print_error(0, "No environment");
+		print_error(errno, NULL);
 	if (argc < 4)
 		print_error(1200, NULL);
-	init_v(&v, argc);
+	init_var(&v, argc);
 	fetch_path(envp, &v);
 	while (v.i < (argc - 1))
 	{
@@ -34,6 +34,7 @@ int	main(int argc, char *argv[], char *envp[])
 	}
 	close(v.tmp_in);
 	v.tmp_in = 0;
-	while (wait(0) != -1 && errno != ECHILD);
+	while (wait(0) != -1 && errno != ECHILD)
+		;
 	free_v(&v, EXIT_SUCCESS, NULL);
 }

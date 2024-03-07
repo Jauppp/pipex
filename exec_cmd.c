@@ -6,13 +6,13 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:03:59 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/01 18:33:52 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/07 15:00:27 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	fork_and_exec(t_v *v, char *argv[])
+void	fork_and_exec(t_var *v, char *argv[])
 {
 	v->id = fork();
 	if (v->id == -1)
@@ -29,9 +29,9 @@ void	fork_and_exec(t_v *v, char *argv[])
 				free_v(v, errno, NULL);
 			exec_first_cmd(v);
 		}
-		else if (v->i == (v->ac - 1))
+		else if (v->i == (v->ac))
 		{
-			v->file[W] = open(argv[v->ac - 1], O_CREAT | O_TRUNC | O_RDWR, 0777);
+			v->file[W] = open(argv[v->ac], O_CREAT | O_TRUNC | O_RDWR, 0777);
 			if (v->file[W] == -1)
 				free_v(v, errno, NULL);
 			exec_last_cmd(v);
@@ -41,7 +41,7 @@ void	fork_and_exec(t_v *v, char *argv[])
 	}
 }
 
-void	exec_first_cmd(t_v *v)
+void	exec_first_cmd(t_var *v)
 {
 	if (dup2(v->file[R], STDIN_FILENO) == -1)
 		free_v(v, errno, "OUT");
@@ -52,10 +52,9 @@ void	exec_first_cmd(t_v *v)
 	close(v->file[R]);
 	execve(v->a_path, v->args, v->paths);
 	free_v(v, 0, NULL);
-
 }
 
-void	exec_cmd(t_v *v)
+void	exec_cmd(t_var *v)
 {
 	if (dup2(v->tmp_in, STDIN_FILENO) == -1)
 		free_v(v, errno, NULL);
@@ -65,10 +64,9 @@ void	exec_cmd(t_v *v)
 	close(v->fd[W]);
 	execve(v->a_path, v->args, v->paths);
 	free_v(v, 0, NULL);
-
 }
 
-void	exec_last_cmd(t_v *v)
+void	exec_last_cmd(t_var *v)
 {
 	close(v->fd[W]);
 	close(v->fd[R]);
@@ -79,5 +77,4 @@ void	exec_last_cmd(t_v *v)
 	close(v->file[W]);
 	execve(v->a_path, v->args, v->paths);
 	free_v(v, 0, NULL);
-
 }
