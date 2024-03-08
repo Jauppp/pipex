@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 17:02:04 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/07 14:46:20 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/08 12:56:51 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <fcntl.h>
 # include <errno.h>
 # include <string.h>
+#include <stdio.h>
 
 # define DQUOTE 34
 # define SQUOTE 39
