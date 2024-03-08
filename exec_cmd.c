@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:03:59 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/08 13:06:31 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/08 18:04:22 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ void	fork_and_exec(t_var *v, char *argv[])
 void	exec_first_cmd(t_var *v)
 {
 	if (!v->a_path)
-		v->a_path = NULL;
-	// printf("%s\n", v->a_path);
+		return ;
 	if (dup2(v->file[R], STDIN_FILENO) == -1)
 		free_v(v, errno, "OUT");
 	if (dup2(v->fd[W], STDOUT_FILENO) == -1)
@@ -60,8 +59,7 @@ void	exec_first_cmd(t_var *v)
 void	exec_cmd(t_var *v)
 {
 	if (!v->a_path)
-		v->a_path = NULL;
-	// printf("%s\n", v->a_path);
+		return ;
 	if (dup2(v->tmp_in, STDIN_FILENO) == -1)
 		free_v(v, errno, NULL);
 	if (dup2(v->fd[W], STDOUT_FILENO) == -1)
@@ -75,8 +73,7 @@ void	exec_cmd(t_var *v)
 void	exec_last_cmd(t_var *v)
 {
 	if (!v->a_path)
-		v->a_path = NULL;
-	// printf("%s\n", v->a_path);
+		return ;
 	close(v->fd[W]);
 	close(v->fd[R]);
 	if (dup2(v->tmp_in, STDIN_FILENO) == -1)

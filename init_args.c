@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:50:16 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/08 13:21:55 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/08 18:43:00 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	fetch_path(char **envp, t_var *v)
 			free(path);
 			if (!v->paths)
 				free_v(v, errno, NULL);
+			return ;
 		}
 		i++;
 	}
@@ -40,17 +41,19 @@ int	fetch_a_path(char *argv[], t_var *v)
 
 	i = 0;
 	fetch_args(argv, v);
+	if (access(v->args[0], F_OK) == 0)
+	{
+		if (v->a_path)
+			reinit(v->a_path);
+		v->a_path = ft_strdup(v->args[0]);
+		if (!v->a_path)
+			free_v(v, errno, NULL);
+		return (EXIT_SUCCESS);
+	}
 	while (v->paths && v->paths[i])
 	{
 		if (v->a_path)
-			free(v->a_path);
-		if (access(v->args[0], F_OK) == 0)
-		{
-			v->a_path = ft_strdup(v->args[0]);
-			if (!v->a_path)
-				free_v(v, errno, NULL);
-			return (EXIT_SUCCESS);
-		}
+			reinit(v->a_path);
 		v->a_path = append_cmd(v->paths[i], v->args[0]);
 		if (!v->a_path)
 			free_v(v, 0, "Append failed");
@@ -58,7 +61,7 @@ int	fetch_a_path(char *argv[], t_var *v)
 			return (EXIT_SUCCESS);
 		i++;
 	}
-	ft_printf("pipex: %s: %s\n", strerror(errno), v->args[0]);
+	printf("%ld - pipex: %s: No such file or directory\n", i, v->args[0]);
 	return (EXIT_FAILURE);
 }
 

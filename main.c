@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:47:10 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/08 12:48:13 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/08 18:43:54 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ int	main(int argc, char *argv[], char *envp[])
 		print_error(1200, NULL);
 	init_var(&v, argc);
 	fetch_path(envp, &v);
-	while (v.i < (argc - 1))
+	while (v.i < v.ac)
 	{
+		printf("%d %d\n", v.ac, v.i);
 		fetch_a_path(argv, &v);
 		if (pipe(v.fd) == -1)
 			free_v(&v, errno, NULL);
