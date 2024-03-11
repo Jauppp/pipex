@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:50:16 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/11 11:29:29 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/11 17:02:22 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,11 @@ void	fetch_path(char **envp, t_var *v)
 	}
 }
 
-int	fetch_a_path(char *argv[], t_var *v)
+int	fetch_a_path(t_var *v)
 {
 	size_t	i;
 
 	i = 0;
-	fetch_args(argv, v);
 	if (access(v->args[0], F_OK) == 0)
 	{
 		if (v->a_path)
@@ -50,7 +49,16 @@ int	fetch_a_path(char *argv[], t_var *v)
 			free_v(v, errno, NULL);
 		return (EXIT_SUCCESS);
 	}
-	while (v->paths)
+	while (v->paths && v->paths[i])
+	{
+		if (v->a_path)
+			reinit(v->a_path);
+		v->a_path = ft_strdup(v->args[0]);
+		if (!v->a_path)
+			free_v(v, errno, NULL);
+		return (EXIT_SUCCESS);
+	}
+	while (v->paths && v->paths[i])
 	{
 		if (v->a_path)
 			reinit(v->a_path);
@@ -61,7 +69,7 @@ int	fetch_a_path(char *argv[], t_var *v)
 			return (EXIT_SUCCESS);
 		i++;
 	}
-	printf("%ld - pipex: %s: No such file or directory\n", i, v->args[0]);
+	ft_printf("pipex: %s: No such file or directory\n", v->args[0]);
 	return (EXIT_FAILURE);
 }
 

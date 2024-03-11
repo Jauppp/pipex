@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:03:59 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/11 11:29:06 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/11 17:01:22 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,10 @@ void	exec_first_cmd(t_var *v)
 	close(v->fd[W]);
 	close(v->fd[R]);
 	close(v->file[R]);
-	execve(v->a_path, v->args, v->paths);
+	if (v->a_path && access(v->a_path, R_OK) != -1)
+		execve(v->a_path, v->args, v->paths);
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
 	free_v(v, 0, NULL);
 }
 
@@ -66,7 +69,10 @@ void	exec_cmd(t_var *v)
 		free_v(v, errno, NULL);
 	close(v->fd[R]);
 	close(v->fd[W]);
-	execve(v->a_path, v->args, v->paths);
+	if (v->a_path && access(v->a_path, R_OK) != -1)
+		execve(v->a_path, v->args, v->paths);
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
 	free_v(v, 0, NULL);
 }
 
@@ -81,6 +87,9 @@ void	exec_last_cmd(t_var *v)
 	if (dup2(v->file[W], STDOUT_FILENO) == -1)
 		free_v(v, errno, NULL);
 	close(v->file[W]);
-	execve(v->a_path, v->args, v->paths);
+	if (v->a_path && access(v->a_path, R_OK) != -1)
+		execve(v->a_path, v->args, v->paths);
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
 	free_v(v, 0, NULL);
 }
