@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:50:16 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/11 12:51:42 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/11 13:39:49 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	fetch_path(char **envp, t_var *v)
 			free(path);
 			if (!v->paths)
 				free_v(v, errno, NULL);
+			return ;
 		}
 		i++;
 	}
@@ -59,7 +60,7 @@ int	fetch_a_path(t_var *v)
 			return (EXIT_SUCCESS);
 		i++;
 	}
-	ft_printf("pipex: %s: %s\n", strerror(errno), v->args[0]);
+	ft_printf("pipex: %s: No such file or directory\n", v->args[0]);
 	return (EXIT_FAILURE);
 }
 
@@ -79,7 +80,6 @@ void	fetch_args(char **argv, t_var *v)
 	if (!v->args)
 		free_v(v, errno, NULL);
 	reverse_tokenize(v->args);
-	v->i++;
 }
 
 void	fetch_files(char **argv, t_var *v)
