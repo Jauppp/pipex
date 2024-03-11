@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:03:59 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/08 18:04:22 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/11 11:29:06 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	fork_and_exec(t_var *v, char *argv[])
 		free_v(v, errno, NULL);
 	if (v->id == 0)
 	{
-		if (v->i == 3)
+		if (v->i == 3 && v->a_path)
 		{
 			if (access(argv[1], R_OK) == -1)
 				v->file[R] = open("/dev/null", O_RDONLY);
@@ -29,7 +29,7 @@ void	fork_and_exec(t_var *v, char *argv[])
 				free_v(v, errno, NULL);
 			exec_first_cmd(v);
 		}
-		else if (v->i == (v->ac))
+		else if (v->i == (v->ac) && v->a_path)
 		{
 			v->file[W] = open(argv[v->ac], O_CREAT | O_TRUNC | O_RDWR, 0777);
 			if (v->file[W] == -1)

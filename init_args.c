@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:50:16 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/08 18:43:00 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/11 11:29:29 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	fetch_a_path(char *argv[], t_var *v)
 			free_v(v, errno, NULL);
 		return (EXIT_SUCCESS);
 	}
-	while (v->paths && v->paths[i])
+	while (v->paths)
 	{
 		if (v->a_path)
 			reinit(v->a_path);
@@ -81,7 +81,6 @@ void	fetch_args(char **argv, t_var *v)
 	if (!v->args)
 		free_v(v, errno, NULL);
 	reverse_tokenize(v->args);
-	v->i++;
 }
 
 void	fetch_files(char **argv, t_var *v)
