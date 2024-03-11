@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:47:10 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/08 12:48:13 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/11 12:52:03 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,15 @@ int	main(int argc, char *argv[], char *envp[])
 	t_var	v;
 
 	if (!envp || !*envp)
-		print_error(errno, NULL);
-	if (argc < 4)
+		print_error(errno, "Path not found");
+	if (argc <= 4)
 		print_error(1200, NULL);
 	init_var(&v, argc);
 	fetch_path(envp, &v);
 	while (v.i < (argc - 1))
 	{
-		fetch_a_path(argv, &v);
+		fetch_args(argv, &v);
+		fetch_a_path(&v);
 		if (pipe(v.fd) == -1)
 			free_v(&v, errno, NULL);
 		fork_and_exec(&v, argv);

@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 17:02:04 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/08 12:56:51 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/11 12:51:52 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	reverse_tokenize(char **tab);
 void	tokenize(char *str);
 
 /* Init args */
-int		fetch_a_path(char *argv[], t_var *v);
+int		fetch_a_path(t_var *v);
 void	fetch_args(char **argv, t_var *v);
 void	fetch_files(char **argv, t_var *v);
 void	fetch_path(char **envp, t_var *v);

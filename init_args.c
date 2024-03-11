@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:50:16 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/08 13:21:55 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/11 12:51:42 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,23 +34,24 @@ void	fetch_path(char **envp, t_var *v)
 	}
 }
 
-int	fetch_a_path(char *argv[], t_var *v)
+int	fetch_a_path(t_var *v)
 {
 	size_t	i;
 
 	i = 0;
-	fetch_args(argv, v);
+	if (access(v->args[0], F_OK) == 0)
+	{
+		if (v->a_path)
+			reinit(v->a_path);
+		v->a_path = ft_strdup(v->args[0]);
+		if (!v->a_path)
+			free_v(v, errno, NULL);
+		return (EXIT_SUCCESS);
+	}
 	while (v->paths && v->paths[i])
 	{
 		if (v->a_path)
-			free(v->a_path);
-		if (access(v->args[0], F_OK) == 0)
-		{
-			v->a_path = ft_strdup(v->args[0]);
-			if (!v->a_path)
-				free_v(v, errno, NULL);
-			return (EXIT_SUCCESS);
-		}
+			reinit(v->a_path);
 		v->a_path = append_cmd(v->paths[i], v->args[0]);
 		if (!v->a_path)
 			free_v(v, 0, "Append failed");
