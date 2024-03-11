@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 17:02:04 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/11 12:51:52 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/11 17:26:11 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,13 @@
 # include <fcntl.h>
 # include <errno.h>
 # include <string.h>
-#include <stdio.h>
 
 # define DQUOTE 34
 # define SQUOTE 39
+# define FORM_ERR_BON "Incorrect formatting\nPlease enter 'file1' 'cmd1' 'cmd2' \
+'file2'.\nYou can add as many commands as you want."
+# define FORM_ERR "Incorrect formatting\nPlease enter 'file1' 'cmd1' 'cmd2'\
+'file2'."
 # define R	0
 # define W	1
 
@@ -41,11 +44,6 @@ typedef struct s_v
 	int		id;
 	int		tmp_in;
 }	t_var;
-
-/* Display | TO DELETE */
-void	display_tab(char **tab, char *str);
-void	display_t_var(t_var v);
-void	display_fds(t_var v);
 
 /* Errors */
 void	print_error(int error_code, char *error_message);

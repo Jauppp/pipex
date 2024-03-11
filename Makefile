@@ -6,11 +6,12 @@
 #    By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 10:23:52 by cdomet-d          #+#    #+#              #
-#    Updated: 2024/03/07 16:25:35 by cdomet-d         ###   ########lyon.fr    #
+#    Updated: 2024/03/11 17:49:33 by cdomet-d         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := pipex
+BONUS := pipex_bonus
 LIB := libft.a
 BUILD_DIR := .dir_build
 LIBFT_DIR := libft
@@ -26,13 +27,22 @@ SRCS := errors.c \
 		memory.c \
 		utils.c \
 		exec_cmd.c \
-		display.c \
+
+SRCS_B :=	bonus_errors.c \
+			bonus_memory.c \
+			bonus_exec_cmd.c \
+			bonus_utils.c \
+			bonus_main.c \
+			bonus_init_args.c \
 
 OBJS := $(addprefix $(BUILD_DIR)/, $(SRCS:%.c=%.o))
+OBJS_B := $(addprefix $(BUILD_DIR)/, $(SRCS_B:%.c=%.o))
 DEPS := $(OBJS:%.o=%.d)
 RM := rm -rf
 
-all: $(NAME) clout
+all: $(NAME)
+
+bonus: $(BONUS)
 
 $(NAME): $(LIBFT_DIR)/$(LIB) $(OBJS)
 	@echo
@@ -41,6 +51,15 @@ $(NAME): $(LIBFT_DIR)/$(LIB) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -L$(LIBFT_DIR) -o $(NAME) -lft
 	@echo
 	@echo "$(GREEN)|=========== \t\t PIPEX done ! \t\t ===========|$(RESET)"
+	@echo
+
+$(BONUS): $(LIBFT_DIR)/$(LIB) $(OBJS_B)
+	@echo
+	@echo "$(PURPLE)|========== \t\t Making bonus \t\t ===========|$(RESET)"
+	@echo
+	$(CC) $(CFLAGS) $(OBJS_B) -L$(LIBFT_DIR) -o $(BONUS) -lft
+	@echo
+	@echo "$(GREEN)|=========== \t\t Bonus done ! \t\t ===========|$(RESET)"
 	@echo
 
 $(BUILD_DIR)/%.o:%.c pipex.h $(LIBFT_DIR)/libft.h Makefile
@@ -53,12 +72,7 @@ $(LIBFT_DIR)/$(LIB): FORCE
 	@echo "$(RESET)"
 
  -include $(DEPS)
-
-clout:
-	rm -f out
-	@echo
-	@echo "$(BLUE)|===========================================================|$(RESET)"
-
+ 
 clean:
 	@echo
 	@echo "$(CYAN)|========== \t\t Running clean... \t ===========|$(RESET)"
