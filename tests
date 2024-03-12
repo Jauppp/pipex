@@ -6,7 +6,7 @@
 #    By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/12 11:29:09 by cdomet-d          #+#    #+#              #
-#    Updated: 2024/03/12 15:25:41 by cdomet-d         ###   ########lyon.fr    #
+#    Updated: 2024/03/12 17:10:55 by cdomet-d         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,22 +17,25 @@ exe="./pipex"
 exe_bonus="./pipex_b"
 
 echo "== [TEST 1] =="
-
-
 args="Makefile cat cat out"
 echo "testing : $args"
-echo
 $valgrind $exe $args
 < Makefile cat | cat > outsh
-
 # greping log to find leaks
 grep "total heap usage" log
 grep -i open log
 grep -i pipex log
-echo 
-
 # comparing output with bash
-diff out outsh
+echo
+if [ -z "$(diff out outsh)" ]; then
+    echo "Diff OK"
+else
+    echo "Diff KO"
+	echo "You :"
+	cat -e out
+	echo "Bash :"
+	cat -e outsh
+fi
 echo
 
 echo "== [TEST 2] =="
@@ -43,7 +46,6 @@ args=(
     "out"
 )
 echo "testing : ${args[@]}"
-echo
 $valgrind $exe "${args[@]}"
 < Makefile ls | grep .c > outsh
 
@@ -56,6 +58,10 @@ if [ -z "$(diff out outsh)" ]; then
     echo "Diff OK"
 else
     echo "Diff KO"
+	echo "You :"
+	cat -e out
+	echo "Bash :"
+	cat -e outsh
 fi
 echo
 
@@ -72,7 +78,6 @@ echo "testing : ${args[@]}"
 (time (< Makefile sleep 2 | sleep 3 > outsh)) 2> timebash
 grep -oP "real\t\K[0-9]+m[0-9]" time > rtime
 grep -oP "real\t\K[0-9]+m[0-9]" time > rtimebash
-
 # greping log to find leaks
 grep "total heap usage" log
 grep -i open log
@@ -82,31 +87,82 @@ if [ -z "$(diff rtime rtimebash)" ]; then
     echo "Diff OK"
 else
     echo "Diff KO"
+	echo "You :"
+	cat -e out
+	echo "Bash :"
+	cat -e outsh
 fi
 rm time timebash rtime rtimebash
 echo
 
-args="Makefile ghehe "wc -l" out"
-echo "testing : $args"
-echo	
-$valgrind $exe $args
+echo "== [TEST 4] =="
+args=(
+	"Makefile"
+	"ghehe" 
+	"wc -l" 
+	"out"
+)
+echo "testing : ${args[@]}"
+$valgrind $exe "${args[@]}"
+< Makefile ghehe | wc -l > outsh
+# greping log to find leaks
 grep "total heap usage" log
-diff out outsh
+grep -i open log
+grep -i pipex log
+echo
+if [ -z "$(diff out outsh)" ]; then
+    echo "Diff OK"
+else
+    echo "Diff KO"
+	echo diff out outsh
+fi
 echo
 
-args="Makefile "ls -l" "grep .c" out"
-echo "testing : $args"
-echo
-$valgrind $exe $args
+echo "== [TEST 5] =="
+args=(
+	"Makefile"
+	"ls -l" 
+	"grep .c" 
+	"out"
+)
+echo "testing : ${args[@]}"
+$valgrind $exe "${args[@]}"
+< Makefile ls -l | grep .c > outsh
+# greping log to find leaks
 grep "total heap usage" log
-diff out outsh
+grep -i open log
+grep -i pipex log
+echo
+if [ -z "$(diff out outsh)" ]; then
+    echo "Diff OK"
+else
+    echo "Diff KO"
+	echo "You :"
+	cat -e out
+	echo "Bash :"
+	cat -e outsh
+fi
 echo
 
-args="Makefile "echo Hello" "wc -l" out"
-echo "testing : $args"
-echo
-$valgrind $exe $args
-grep "total heap usage" log
-diff out outsh
-echo
+echo "== [TEST 6] =="
 
+args=(
+	"Makefile"
+	diff out outsh
+
+)
+echo
+$valgrind $exe "${args[@]}"
+< Makefile echo Hello | sep 's/Hello/World/' > outsh
+# greping log to find leaks
+grep "total heap usage" log
+grep -oP "Open file descriptor [0-1024]+:" log
+grep -i pipex log
+echo
+if [ -z "$(diff out outsh)" ]; then
+    echo "Diff OK"
+else
+    echo "Diff KO"
+	diff out outsh
+
+fi

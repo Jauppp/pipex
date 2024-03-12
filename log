@@ -1,44 +1,69 @@
-==318056== Memcheck, a memory error detector
-==318056== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==318056== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
-==318056== Command: ./pipex Makefile
-==318056== Parent PID: 317924
-==318056== 
-==318056== 
-==318056== FILE DESCRIPTORS: 9 open at exit.
-==318056== Open file descriptor 103: /home/cdomet-d/VSCODE_TRUE/VSCode-linux-x64/v8_context_snapshot.bin
-==318056==    <inherited from parent>
-==318056== 
-==318056== Open file descriptor 41: /dev/ptmx
-==318056==    <inherited from parent>
-==318056== 
-==318056== Open file descriptor 40: /home/cdomet-d/VSCODE_TRUE/VSCode-linux-x64/resources/app/node_modules.asar
-==318056==    <inherited from parent>
-==318056== 
-==318056== Open AF_UNIX socket 39: <unknown>
-==318056==    <inherited from parent>
-==318056== 
-==318056== Open file descriptor 38: /home/cdomet-d/.config/Code/logs/20240312T094507/ptyhost.log
-==318056==    <inherited from parent>
-==318056== 
-==318056== Open file descriptor 3: /home/cdomet-d/Documents/WIP/pipex/log
-==318056==    <inherited from parent>
-==318056== 
-==318056== Open file descriptor 2: /dev/pts/1
-==318056==    <inherited from parent>
-==318056== 
-==318056== Open file descriptor 1: /dev/pts/1
-==318056==    <inherited from parent>
-==318056== 
-==318056== Open file descriptor 0: /dev/pts/1
-==318056==    <inherited from parent>
-==318056== 
-==318056== 
-==318056== HEAP SUMMARY:
-==318056==     in use at exit: 0 bytes in 0 blocks
-==318056==   total heap usage: 0 allocs, 0 frees, 0 bytes allocated
-==318056== 
-==318056== All heap blocks were freed -- no leaks are possible
-==318056== 
-==318056== For lists of detected and suppressed errors, rerun with: -s
-==318056== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==329275== Memcheck, a memory error detector
+==329275== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==329275== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==329275== Command: /usr/bin/diff
+==329275== Parent PID: 329272
+==329275== 
+==329275== 
+==329275== FILE DESCRIPTORS: 9 open at exit.
+==329275== Open file descriptor 103: /home/cdomet-d/VSCODE_TRUE/VSCode-linux-x64/v8_context_snapshot.bin
+==329275==    <inherited from parent>
+==329275== 
+==329275== Open file descriptor 40: /home/cdomet-d/VSCODE_TRUE/VSCode-linux-x64/resources/app/node_modules.asar
+==329275==    <inherited from parent>
+==329275== 
+==329275== Open AF_UNIX socket 39: <unknown>
+==329275==    <inherited from parent>
+==329275== 
+==329275== Open file descriptor 38: /home/cdomet-d/.config/Code/logs/20240312T094507/ptyhost.log
+==329275==    <inherited from parent>
+==329275== 
+==329275== Open file descriptor 4: /home/cdomet-d/Documents/WIP/pipex/log
+==329275==    <inherited from parent>
+==329275== 
+==329275== Open file descriptor 3: /home/cdomet-d/Documents/WIP/pipex/log
+==329275==    <inherited from parent>
+==329275== 
+==329275== Open file descriptor 2: /dev/pts/0
+==329275==    <inherited from parent>
+==329275== 
+==329275== Open file descriptor 1:
+==329275==    <inherited from parent>
+==329275== 
+==329275== Open file descriptor 0: /home/cdomet-d/Documents/WIP/pipex/Makefile
+==329275==    <inherited from parent>
+==329275== 
+==329275== 
+==329275== HEAP SUMMARY:
+==329275==     in use at exit: 17 b==329272== 
+==329272== FILE DESCRIPTORS: 7 open at exit.
+==329272== Open file descriptor 103: /home/cdomet-d/VSCODE_TRUE/VSCode-linux-x64/v8_context_snapshot.bin
+==329272==    <inherited from parent>
+==329272== 
+==329272== Open file descriptor 40: /home/cdomet-d/VSCODE_TRUE/VSCode-linux-x64/resources/app/node_modules.asar
+==329272==    <inherited from parent>
+==329272== 
+==329272== Open AF_UNIX socket 39: <unknown>
+==329272==    <inherited from parent>
+==329272== 
+==329272== Open file descriptor 38: /home/cdomet-d/.config/Code/logs/20240312T094507/ptyhost.log
+==329272==    <inherited from parent>
+==329272== 
+==329272== Open file descriptor 3: /home/cdomet-d/Documents/WIP/pipex/log
+==329272==    <inherited from parent>
+==329272== 
+==329272== Open file descriptor 2: /dev/pts/0
+==329272==    <inherited from parent>
+==329272== 
+==329272== Open file descriptor 1: /dev/pts/0
+==329272==    <inherited from parent>
+==329272== 
+==329272== 
+==329272== HEAP SUMMARY:
+==329272==     in use at exit: 0 bytes in 0 blocks
+==329272==   total heap usage: 28 allocs, 28 frees, 712 bytes allocated
+==329272== 
+==329272== All heap blocks were freed -- no leaks are possible
+==329272== 
+==329272== For lists of detected and suppressed errors, rerun with: -s
+==329272== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
