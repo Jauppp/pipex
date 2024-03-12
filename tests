@@ -1,0 +1,112 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    tests                                              :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/03/12 11:29:09 by cdomet-d          #+#    #+#              #
+#    Updated: 2024/03/12 15:25:41 by cdomet-d         ###   ########lyon.fr    #
+#                                                                              #
+# **************************************************************************** #
+
+#!/usr/bin/bash
+
+valgrind="valgrind --log-file=log --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes --trace-children=yes"
+exe="./pipex"
+exe_bonus="./pipex_b"
+
+echo "== [TEST 1] =="
+
+
+args="Makefile cat cat out"
+echo "testing : $args"
+echo
+$valgrind $exe $args
+< Makefile cat | cat > outsh
+
+# greping log to find leaks
+grep "total heap usage" log
+grep -i open log
+grep -i pipex log
+echo 
+
+# comparing output with bash
+diff out outsh
+echo
+
+echo "== [TEST 2] =="
+args=(
+    "Makefile"
+    "ls"
+    "grep .c"
+    "out"
+)
+echo "testing : ${args[@]}"
+echo
+$valgrind $exe "${args[@]}"
+< Makefile ls | grep .c > outsh
+
+# greping log to find leaks
+grep "total heap usage" log
+grep -i open log
+grep -i pipex log
+echo
+if [ -z "$(diff out outsh)" ]; then
+    echo "Diff OK"
+else
+    echo "Diff KO"
+fi
+echo
+
+echo "== [TEST 3] =="
+
+args=(
+	"Makefile"
+	"sleep 2" 
+	"sleep 3" 
+	"out"
+)
+echo "testing : ${args[@]}"
+(time ($exe "${args[@]}")) 2> time
+(time (< Makefile sleep 2 | sleep 3 > outsh)) 2> timebash
+grep -oP "real\t\K[0-9]+m[0-9]" time > rtime
+grep -oP "real\t\K[0-9]+m[0-9]" time > rtimebash
+
+# greping log to find leaks
+grep "total heap usage" log
+grep -i open log
+grep -i pipex log
+echo
+if [ -z "$(diff rtime rtimebash)" ]; then
+    echo "Diff OK"
+else
+    echo "Diff KO"
+fi
+rm time timebash rtime rtimebash
+echo
+
+args="Makefile ghehe "wc -l" out"
+echo "testing : $args"
+echo	
+$valgrind $exe $args
+grep "total heap usage" log
+diff out outsh
+echo
+
+args="Makefile "ls -l" "grep .c" out"
+echo "testing : $args"
+echo
+$valgrind $exe $args
+grep "total heap usage" log
+diff out outsh
+echo
+
+args="Makefile "echo Hello" "wc -l" out"
+echo "testing : $args"
+echo
+$valgrind $exe $args
+grep "total heap usage" log
+diff out outsh
+echo
+

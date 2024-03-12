@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   bonus_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:47:10 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/12 14:30:15 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/12 10:47:55 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int	main(int argc, char *argv[], char *envp[])
 
 	if (!envp || !*envp)
 		print_error(errno, "Path not found");
-	if (argc != 5)
-		print_error(0, FORM_ERR);
+	if (argc <= 5)
+		print_error(0, FORM_ERR_BON);
 	init_var(&v, argc);
 	fetch_path(envp, &v);
 	while (v.i < (argc - 1))

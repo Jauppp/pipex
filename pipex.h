@@ -6,35 +6,36 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 17:02:04 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/11 12:51:52 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/12 10:41:19 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
-# include "libft/libft.h" // libft
-# include <unistd.h> // standard
-# include <sys/wait.h>
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <stdbool.h>
-# include <fcntl.h>
+# include "libft/libft.h"
+# include <unistd.h> // write
+# include <sys/wait.h> // wait
+# include <stdbool.h> // needed by tokenisation
+# include <fcntl.h> // open
 # include <errno.h>
-# include <string.h>
-#include <stdio.h>
+# include <string.h> // sterror
 
 # define DQUOTE 34
 # define SQUOTE 39
+# define FORM_ERR "Incorrect formatting\nPlease enter 'file1' 'cmd1' 'cmd2' \
+'file2'."
+# define FORM_ERR_BON "Incorrect formatting\nPlease enter 'file1' 'cmd1' 'cmd2' \
+'file2'.\nYou can add as many commands as you want."
 # define R	0
 # define W	1
 
 typedef struct s_v
 {
-	char	**args; // current command arguments
+	char	**args; // current cmd arguments
 	char	**paths; // env paths
-	char	*a_path; // absolute path for the current command
-	int		ac; // number of arguments given to pipex
+	char	*a_path; // absolute path
+	int		ac; // nb of cmds to given
 	int		fd[2];
 	int		file[2];
 	int		i;
@@ -42,13 +43,6 @@ typedef struct s_v
 	int		tmp_in;
 }	t_var;
 
-/* Display | TO DELETE */
-void	display_tab(char **tab, char *str);
-void	display_t_var(t_var v);
-void	display_fds(t_var v);
-
-/* Errors */
-void	print_error(int error_code, char *error_message);
 
 /* Utils */
 char	*append_cmd(char const *s1, char const *s2);
@@ -62,8 +56,9 @@ void	fetch_args(char **argv, t_var *v);
 void	fetch_files(char **argv, t_var *v);
 void	fetch_path(char **envp, t_var *v);
 
-/* Memory */
+/* Error && memory management */
 void	free_v(t_var *v, int exit_code, char *error_message);
+void	print_error(int error_code, char *error_message);
 void	free_dtab(char **dtab);
 void	reinit(char *temp);
 
