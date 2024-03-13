@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 17:02:04 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/12 10:41:19 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/13 10:57:40 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ typedef struct s_v
 	int		id;
 	int		tmp_in;
 }	t_var;
-
 
 /* Utils */
 char	*append_cmd(char const *s1, char const *s2);

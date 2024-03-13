@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:03:59 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/12 10:18:22 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/13 10:57:15 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ void	fork_and_exec(t_var *v, char *argv[])
 void	exec_first_cmd(t_var *v)
 {
 	if (dup2(v->file[R], STDIN_FILENO) == -1)
-		free_v(v, errno, "OUT");
+		free_v(v, errno, NULL);
 	if (dup2(v->fd[W], STDOUT_FILENO) == -1)
-		free_v(v, errno, "IN");
+		free_v(v, errno, NULL);
 	close(v->fd[W]);
 	close(v->fd[R]);
 	close(v->file[R]);
@@ -55,6 +55,7 @@ void	exec_first_cmd(t_var *v)
 	close(STDIN_FILENO);
 	close(STDOUT_FILENO);
 	free_v(v, 0, NULL);
+	print_error(errno, NULL);
 }
 
 void	exec_cmd(t_var *v)
@@ -70,6 +71,7 @@ void	exec_cmd(t_var *v)
 	close(STDIN_FILENO);
 	close(STDOUT_FILENO);
 	free_v(v, 0, NULL);
+	print_error(errno, NULL);
 }
 
 void	exec_last_cmd(t_var *v)
@@ -86,4 +88,5 @@ void	exec_last_cmd(t_var *v)
 	close(STDIN_FILENO);
 	close(STDOUT_FILENO);
 	free_v(v, 0, NULL);
+	print_error(errno, NULL);
 }

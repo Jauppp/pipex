@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:47:10 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/12 17:01:13 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/13 10:54:09 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ int	main(int argc, char *argv[], char *envp[])
 {
 	t_var	v;
 
-	if (!envp || !*envp)
-		print_error(errno, "Path not found");
 	if (argc != 5)
 		print_error(0, FORM_ERR);
 	init_var(&v, argc);
@@ -30,7 +28,8 @@ int	main(int argc, char *argv[], char *envp[])
 		if (pipe(v.fd) == -1)
 			free_v(&v, errno, NULL);
 		fork_and_exec(&v, argv);
-		dup2(v.fd[R], v.tmp_in);
+		if (dup2(v.fd[R], v.tmp_in) == -1)
+			free_v(&v, errno, NULL);
 		close(v.fd[W]);
 		close(v.fd[R]);
 	}

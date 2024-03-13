@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_cmd.c                                         :+:      :+:    :+:   */
+/*   bonus_exec_cmd.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:03:59 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/12 10:18:22 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/13 10:57:08 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	exec_first_cmd(t_var *v)
 	close(STDIN_FILENO);
 	close(STDOUT_FILENO);
 	free_v(v, 0, NULL);
+	print_error(errno, NULL);
 }
 
 void	exec_cmd(t_var *v)
@@ -70,6 +71,7 @@ void	exec_cmd(t_var *v)
 	close(STDIN_FILENO);
 	close(STDOUT_FILENO);
 	free_v(v, 0, NULL);
+	print_error(errno, NULL);
 }
 
 void	exec_last_cmd(t_var *v)
@@ -86,4 +88,5 @@ void	exec_last_cmd(t_var *v)
 	close(STDIN_FILENO);
 	close(STDOUT_FILENO);
 	free_v(v, 0, NULL);
+	print_error(errno, NULL);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bonus_errors_management.c                          :+:      :+:    :+:   */
+/*   bonus_error_management.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:15:28 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/12 10:47:27 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/13 10:57:28 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	print_error(int error_code, char *error_message)
 		ft_putendl_fd(error_message, STDERR_FILENO);
 	exit(EXIT_FAILURE);
 }
-
 
 void	free_dtab(char **dtab)
 {
