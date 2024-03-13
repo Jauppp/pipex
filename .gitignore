@@ -1,3 +1,6 @@
 .dir_build
 libft/.dir_build
 pipex
+pipex_b
+test_unit
+.vscode

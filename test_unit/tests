@@ -6,7 +6,7 @@
 #    By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/12 11:29:09 by cdomet-d          #+#    #+#              #
-#    Updated: 2024/03/12 17:10:55 by cdomet-d         ###   ########lyon.fr    #
+#    Updated: 2024/03/13 13:57:05 by cdomet-d         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,17 +14,18 @@
 
 valgrind="valgrind --log-file=log --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes --trace-children=yes"
 exe="./pipex"
-exe_bonus="./pipex_b"
 
-echo "== [TEST 1] =="
+echo "		TESTING MANDATORY PART"
+make
+
+echo "	== [TEST 1] =="
 args="Makefile cat cat out"
 echo "testing : $args"
 $valgrind $exe $args
 < Makefile cat | cat > outsh
 # greping log to find leaks
 grep "total heap usage" log
-grep -i open log
-grep -i pipex log
+grep -A 500 "Open file descriptor [0-1024]:$" log | awk '1; /== $/{exit}'
 # comparing output with bash
 echo
 if [ -z "$(diff out outsh)" ]; then
@@ -38,7 +39,7 @@ else
 fi
 echo
 
-echo "== [TEST 2] =="
+echo "	== [TEST 2] =="
 args=(
     "Makefile"
     "ls"
@@ -51,8 +52,7 @@ $valgrind $exe "${args[@]}"
 
 # greping log to find leaks
 grep "total heap usage" log
-grep -i open log
-grep -i pipex log
+grep -A 500 "Open file descriptor [0-1024]:$" log | awk '1; /== $/{exit}'
 echo
 if [ -z "$(diff out outsh)" ]; then
     echo "Diff OK"
@@ -65,7 +65,7 @@ else
 fi
 echo
 
-echo "== [TEST 3] =="
+echo "	== [TEST 3] =="
 
 args=(
 	"Makefile"
@@ -73,15 +73,14 @@ args=(
 	"sleep 3" 
 	"out"
 )
-echo "testing : ${args[@]}"
+echo "testing : ${args[@]} (this one is a bit long)"
 (time ($exe "${args[@]}")) 2> time
 (time (< Makefile sleep 2 | sleep 3 > outsh)) 2> timebash
 grep -oP "real\t\K[0-9]+m[0-9]" time > rtime
 grep -oP "real\t\K[0-9]+m[0-9]" time > rtimebash
 # greping log to find leaks
 grep "total heap usage" log
-grep -i open log
-grep -i pipex log
+grep -A 500 "Open file descriptor [0-1024]:$" log | awk '1; /== $/{exit}'
 echo
 if [ -z "$(diff rtime rtimebash)" ]; then
     echo "Diff OK"
@@ -95,7 +94,7 @@ fi
 rm time timebash rtime rtimebash
 echo
 
-echo "== [TEST 4] =="
+echo "	== [TEST 4] =="
 args=(
 	"Makefile"
 	"ghehe" 
@@ -107,8 +106,7 @@ $valgrind $exe "${args[@]}"
 < Makefile ghehe | wc -l > outsh
 # greping log to find leaks
 grep "total heap usage" log
-grep -i open log
-grep -i pipex log
+grep -A 500 "Open file descriptor [0-1024]:$" log | awk '1; /== $/{exit}'
 echo
 if [ -z "$(diff out outsh)" ]; then
     echo "Diff OK"
@@ -118,20 +116,19 @@ else
 fi
 echo
 
-echo "== [TEST 5] =="
+echo "	== [TEST 5] =="
 args=(
 	"Makefile"
-	"ls -l" 
-	"grep .c" 
+	"ls" 
+	"wc -l" 
 	"out"
 )
 echo "testing : ${args[@]}"
 $valgrind $exe "${args[@]}"
-< Makefile ls -l | grep .c > outsh
+< Makefile ls | wc -l > outsh
 # greping log to find leaks
 grep "total heap usage" log
-grep -i open log
-grep -i pipex log
+grep -A 500 "Open file descriptor [0-1024]:$" log | awk '1; /== $/{exit}'
 echo
 if [ -z "$(diff out outsh)" ]; then
     echo "Diff OK"
@@ -144,25 +141,47 @@ else
 fi
 echo
 
-echo "== [TEST 6] =="
+
+echo "	== [TEST 6] =="
 
 args=(
 	"Makefile"
-	diff out outsh
-
+	"echo 'Some lil testing'"
+	"grep -i TESTING"
+	"out"
 )
 echo
+echo "testing : ${args[@]}"
 $valgrind $exe "${args[@]}"
-< Makefile echo Hello | sep 's/Hello/World/' > outsh
+< Makefile echo 'Some lil testing' | grep -i TESTING > outsh
 # greping log to find leaks
 grep "total heap usage" log
-grep -oP "Open file descriptor [0-1024]+:" log
-grep -i pipex log
+grep -A 500 "Open file descriptor [0-1024]:$" log | awk '1; /== $/{exit}'
 echo
 if [ -z "$(diff out outsh)" ]; then
     echo "Diff OK"
 else
     echo "Diff KO"
 	diff out outsh
-
 fi
+
+echo "	== [TEST 7] =="
+args=(
+	"/dev/random"
+	"cat"
+	"head"
+	"out"
+)
+echo
+echo "testing : ${args[@]}"
+$valgrind $exe "${args[@]}"
+# greping log to find leaks
+grep "total heap usage" log
+grep -A 500 "Open file descriptor [0-1024]:$" log | awk '1; /== $/{exit}'
+echo
+echo "If your pipex didn't stop, it means you have some fds open!"
+echo
+cat out
+
+rm out outsh log
+make fclean
