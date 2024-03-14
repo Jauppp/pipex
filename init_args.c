@@ -6,7 +6,7 @@
 /*   By: cdomet-d <cdomet-d@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:50:16 by cdomet-d          #+#    #+#             */
-/*   Updated: 2024/03/11 17:19:12 by cdomet-d         ###   ########lyon.fr   */
+/*   Updated: 2024/03/14 11:01:17 by cdomet-d         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ void	fetch_args(char **argv, t_var *v)
 		return ;
 	temp = NULL;
 	temp = ft_strdup(argv[v->i]);
+	if (!temp)
+		free_v(v, errno, NULL);
 	tokenize(temp);
 	v->args = ft_split(temp, ' ');
 	reinit(temp);
